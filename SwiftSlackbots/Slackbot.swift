@@ -31,7 +31,7 @@ webhookbot.sendMessage(message: "A very important thing has occurred! <https://a
 
 
 
-//Attributes such as the bot's name and icon can be set by the user, and the channel can be set in advance. Channel may be overridden by specifying a channel by specifying a channel parameter in call to a send message function
+//Attributes such as the bot's name and icon can be set by the user, and the channel can be set in advance of sending a message. The channel may be overridden by specifying a channel parameter in a call to one of the send message function
 
 webhookbot.botname = "webhookbot"
 webhookbot.icon = ":ghost:"
