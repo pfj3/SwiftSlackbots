@@ -7,7 +7,7 @@ http://www.slack.com
 To implement the class, create a new Slackbot object
 
 ```swift
-var webhook = Slackbot()
+var webhookbot = Slackbot()
 ```
 
 
