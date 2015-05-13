@@ -93,12 +93,13 @@ class Slackbot {
     }
     
     //MARK: - Message sending public functions
+    
     func sendMessage(#message: String) {
-        sendMessage(message: message, channel: channel)
+        sendMessage(message: message, channel: nil)
     }
     
     func sendMessage(#message: String, channel: String?) {
-        sendRichTextMessage(fallback: nil, pretext: nil, text: message, color: nil, title: nil, value: nil, short: nil, channel: channel)
+        sendRichTextMessage(text: message, channel: channel)
     }
     
     func sendRichTextMessage(fallback: String? = nil, pretext: String? = nil, text: String? = nil, color: String? = nil, title: String? = nil, value: String? = nil, short: Bool? = nil, channel: String? = nil) {
@@ -113,11 +114,13 @@ class Slackbot {
         if botname != nil {
             slackJsonElements["username"] = botname!
         }
+        
         if channel != nil {
             slackJsonElements["channel"] = channel!
         } else if self.channel != nil {
             slackJsonElements["channel"] = self.channel!
         }
+        
         if icon != nil {
             if let emojiRange = icon!.rangeOfString(":[a-z_0-9-+]+:", options: .RegularExpressionSearch) {
                 slackJsonElements["icon_emoji"] = icon!.substringWithRange(emojiRange)
@@ -125,6 +128,7 @@ class Slackbot {
                 slackJsonElements["icon_url"] = icon!
             }
         }
+        
         if text != nil {
             slackJsonElements["text"] = text!
         }
@@ -167,8 +171,8 @@ class Slackbot {
             slackJsonElements["attachments"] = [slackJsonAttachments]
         }
         
-        //If user passes nil to eveyr field, crash.
-        assert(slackJsonElements.isEmpty == false,"ERROR: No information to transmit")
+        //If user passes nil to every field, crash.
+        assert(slackJsonElements.isEmpty == false, "ERROR: No information to transmit")
         
         //Create the JSON payload
         let payloadData = NSJSONSerialization.dataWithJSONObject(slackJsonElements, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
