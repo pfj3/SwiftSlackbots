@@ -11,8 +11,8 @@
 		882EE8051B03C56B00A2C622 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882EE8041B03C56B00A2C622 /* ViewController.swift */; };
 		882EE8081B03C56B00A2C622 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 882EE8061B03C56B00A2C622 /* Main.storyboard */; };
 		882EE80A1B03C56B00A2C622 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 882EE8091B03C56B00A2C622 /* Images.xcassets */; };
-		882EE80D1B03C56B00A2C622 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 882EE80B1B03C56B00A2C622 /* LaunchScreen.xib */; };
 		882EE8191B03C56B00A2C622 /* SwiftSlackbotsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882EE8181B03C56B00A2C622 /* SwiftSlackbotsTests.swift */; };
+		882EE8231B03C57F00A2C622 /* Slackbot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882EE8221B03C57F00A2C622 /* Slackbot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,10 +32,10 @@
 		882EE8041B03C56B00A2C622 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		882EE8071B03C56B00A2C622 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		882EE8091B03C56B00A2C622 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		882EE80C1B03C56B00A2C622 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		882EE8121B03C56B00A2C622 /* SwiftSlackbotsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftSlackbotsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		882EE8171B03C56B00A2C622 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		882EE8181B03C56B00A2C622 /* SwiftSlackbotsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSlackbotsTests.swift; sourceTree = "<group>"; };
+		882EE8221B03C57F00A2C622 /* Slackbot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slackbot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +77,9 @@
 		882EE7FF1B03C56B00A2C622 /* SwiftSlackbots */ = {
 			isa = PBXGroup;
 			children = (
-				882EE8021B03C56B00A2C622 /* AppDelegate.swift */,
 				882EE8041B03C56B00A2C622 /* ViewController.swift */,
 				882EE8061B03C56B00A2C622 /* Main.storyboard */,
-				882EE8091B03C56B00A2C622 /* Images.xcassets */,
-				882EE80B1B03C56B00A2C622 /* LaunchScreen.xib */,
+				882EE8221B03C57F00A2C622 /* Slackbot.swift */,
 				882EE8001B03C56B00A2C622 /* Supporting Files */,
 			);
 			path = SwiftSlackbots;
@@ -90,6 +88,8 @@
 		882EE8001B03C56B00A2C622 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				882EE8021B03C56B00A2C622 /* AppDelegate.swift */,
+				882EE8091B03C56B00A2C622 /* Images.xcassets */,
 				882EE8011B03C56B00A2C622 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -193,7 +193,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				882EE8081B03C56B00A2C622 /* Main.storyboard in Resources */,
-				882EE80D1B03C56B00A2C622 /* LaunchScreen.xib in Resources */,
 				882EE80A1B03C56B00A2C622 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				882EE8231B03C57F00A2C622 /* Slackbot.swift in Sources */,
 				882EE8051B03C56B00A2C622 /* ViewController.swift in Sources */,
 				882EE8031B03C56B00A2C622 /* AppDelegate.swift in Sources */,
 			);
@@ -242,14 +242,6 @@
 				882EE8071B03C56B00A2C622 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		882EE80B1B03C56B00A2C622 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				882EE80C1B03C56B00A2C622 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -409,6 +401,7 @@
 				882EE81E1B03C56B00A2C622 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		882EE81F1B03C56B00A2C622 /* Build configuration list for PBXNativeTarget "SwiftSlackbotsTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +410,7 @@
 				882EE8211B03C56B00A2C622 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

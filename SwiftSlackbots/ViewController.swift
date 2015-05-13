@@ -10,6 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var textField: UITextField!
+    
+    
+    @IBAction func sendToSlack() {
+        let webhookbot = Slackbot()
+        
+        if let message = textField.text {
+            webhookbot.sendMessage(message: message)
+        }     
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
