@@ -32,7 +32,7 @@ And also messages with links, detailed in Slack's documentation
 webhookbot.sendMessage(message: "A very important thing has occurred! <https://alert-system.com/alerts/1234|Click here> for details!")
 ```
 
-Attributes such as the bot's name and icon can be set by the user, and the channel can be set in advance. Channel may be overridden by specifying a channel by specifying a channel parameter in call to a send message function
+Attributes such as the bot's name and icon can be set by the user, and the channel can be set in advance of sending a message. Channel may be overridden by specifying channel parameter in a call to any of the send message functions
 
 ```swift
 webhookbot.botname = "webhookbot"
