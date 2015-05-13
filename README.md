@@ -20,19 +20,19 @@ webhookbot.slackWebhookUrl = "https://hooks.slack.com/services/Your_webhook_addr
 
 
 
-#####This class can send simple messages:
+####Sending Simple Messages
 
 ```swift
 webhookbot.sendMessage(message: "This is a line of text in a channel.\nAnd this is another line of text.")
 ```
 
-And also messages with links, detailed in Slack's documentation
+And also messages with links:
 
 ```swift
 webhookbot.sendMessage(message: "A very important thing has occurred! <https://alert-system.com/alerts/1234|Click here> for details!")
 ```
 
-Attributes such as the bot's name and icon can be set by the user, and the channel can be set in advance of sending a message. Channel may be overridden by specifying channel parameter in a call to any of the send message functions
+Attributes such as the bot's name and icon can be set by the user, and the channel can be set in advance of sending a message. Channel may be overridden by specifying channel parameter in a call to any of the send message functions.
 
 ```swift
 webhookbot.botname = "webhookbot"
@@ -51,7 +51,7 @@ webhookbot.icon = "https://slack.com/img/icons/app-57.png"
 
 
 
-#####This class can also send more richly formatted messages:
+####Send Richly Formatted Messages
 
 ```swift
 webhookbot.sendRichTextMessage(
