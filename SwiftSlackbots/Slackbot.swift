@@ -186,6 +186,8 @@ class Slackbot {
     //MARK: - Private HTTP Function
     
     private func httpJsonPost(#url: String, jsonPayload: NSData) -> Bool {
+        //Credit to rakeshbs for the basis of this function
+        //http://stackoverflow.com/questions/28270560/call-slack-webincoming-hook-in-swift-but-get-interrupted-reason-exc-bad-instr
         var success = false
         
         if let readableJson = NSString(data: jsonPayload, encoding: NSUTF8StringEncoding) {
