@@ -83,6 +83,8 @@ class Slackbot {
     var channel: String?
     var slackWebhookUrl = "https://hooks.slack.com/services/YOUR_WEBHOOK_URL"
     
+    var markdown: Bool?
+    
     //MARK: - Privately accessible constants
     
     private struct Constants {
@@ -102,12 +104,19 @@ class Slackbot {
         sendRichTextMessage(text: message, channel: channel)
     }
     
-    func sendRichTextMessage(fallback: String? = nil, pretext: String? = nil, text: String? = nil, color: String? = nil, title: String? = nil, value: String? = nil, short: Bool? = nil, channel: String? = nil) {
+    func sendRichTextMessage(fallback: String? = nil, pretext: String? = nil, text: String? = nil, color: String? = nil, title: String? = nil, value: String? = nil, short: Bool? = false, channel: String? = nil) {
+        
+        sendSideBySideMessage(fallback: fallback, pretext: pretext, text: text, color: color, fields: [slackFields(title: title, value: value, short: short)], channel: channel)
+    }
+    
+    //MARK: - Experimental
+    
+    func sendSideBySideMessage(fallback: String? = nil, pretext: String? = nil, text: String? = nil, color: String? = nil, fields:[slackFields]?, channel: String? = nil) {
         
         //Initialize the three arrays to be used
         var slackJsonElements  = [String:AnyObject]()
         var slackJsonAttachments  = [String:AnyObject]()
-        var slackJsonFields = [String:AnyObject]()
+        var slackJsonFields = [[String:String]]()
         
         
         //Elements: username, icon, channel, text
@@ -133,6 +142,9 @@ class Slackbot {
             slackJsonElements["text"] = text!
         }
         
+        if markdown != nil {
+            slackJsonElements["mrkdwn"] = markdown?.description
+        }
         
         
         //Attachments: fallback, pretext, color
@@ -151,21 +163,29 @@ class Slackbot {
         
         
         //Fields: title, value, short
-        if title != nil {
-            slackJsonFields["title"] = title!
+        //        var slackJsonFieldsArray = [[String:String]]()
+        if fields != nil {
+            for element in fields! {
+                var dict = [String: String]()
+                
+                if let t = element.title {
+                    dict["title"] = t
+                }
+                if let v = element.value {
+                    dict["value"] = v
+                }
+                if let s = element.short?.description {
+                    dict["short"] = s
+                }
+                
+                slackJsonFields.append(dict)
+            }
         }
-        if value != nil {
-            slackJsonFields["value"] = value!
-        }
-        if short != nil {
-            slackJsonFields["short"] = short!.description
-        }
-        
         
         
         //Add Fields array into the Attachments array, and then add the Attachments array into the Elements array
         if !slackJsonFields.isEmpty {
-            slackJsonAttachments["fields"] = [slackJsonFields]
+            slackJsonAttachments["fields"] = slackJsonFields
         }
         if !slackJsonAttachments.isEmpty {
             slackJsonElements["attachments"] = [slackJsonAttachments]
@@ -182,6 +202,7 @@ class Slackbot {
             self.httpJsonPost(url: slackWebhookUrl, jsonPayload: payloadData!)
         }
     }
+    
     
     //MARK: - Private HTTP Function
     
@@ -221,5 +242,17 @@ class Slackbot {
             success = false
         }
         return success
+    }
+}
+
+struct slackFields {
+    var title: String?
+    var value: String?
+    var short: Bool?
+    
+    init(title t:String?, value v: String?, short s:Bool?) {
+        title = t
+        value = v
+        short = s
     }
 }
