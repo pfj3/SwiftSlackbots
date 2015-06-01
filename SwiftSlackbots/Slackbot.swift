@@ -76,7 +76,7 @@ import Foundation
 
 class Slackbot {
     
-    //MARK: - User accessible attributes 
+    //MARK: - User accessible attributes
     
     var botname: String?
     var icon: String?
