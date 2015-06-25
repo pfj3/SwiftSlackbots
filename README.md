@@ -73,7 +73,7 @@ Unneeded fields may be specified as "nil" or ignored entirely; they each default
 let webhookbot = Slackbot()
 webhookbot.markdown = true
       
-let pretext = "*Side by Side Message Incoming* from an app written in Swift)"
+let pretext = "*Side by Side Message Incoming* from an app written in Swift"
 
 let fields = [slackFields(title: "Left Column", 
 			value: "This text\nis in the left column", 
