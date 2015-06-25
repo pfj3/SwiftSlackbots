@@ -65,6 +65,8 @@ webhookbot.sendRichTextMessage(
 	channel: nil)
 ```
 
+Unneeded fields may be specified as "nil" or ignored entirely; they each default to nil.
+
 ####Send Side by Side Messages
 
 ```swift
@@ -82,8 +84,6 @@ let fields = [slackFields(title: "Left Column",
 
 webhookbot.sendSideBySideMessage(fallback: "New Side by Side Message", pretext: pretext, fields: fields)
 ```
-
-Unneeded fields may be specified as "nil" or ignored entirely; they each default to nil.
 
 #####Slack's documentation describes the fields for a rich text message as follows:
 
