@@ -176,6 +176,7 @@ class Slackbot {
     }
 }
 
+
 //MARK: - Slack Fields Struct
 
 struct slackFields {
