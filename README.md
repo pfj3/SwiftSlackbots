@@ -42,7 +42,7 @@ webhookbot.sendMessage(message: "This is posted to #test and comes from a bot na
 ```
 
 
-The icon can be an emoji from http://emoji-cheat-sheet.com or it can be the URL of an image. If the icon string does not match the pattern of an emoji (i.e. ```:iphone:```) then it is assumed to be a URL.
+The icon can be an emoji from http://emoji-cheat-sheet.com or it can be the URL of an image. If the icon string does not match the pattern of an emoji (e.g. ```:iphone:```) then it is assumed to be a URL.
 
 ```swift
 webhookbot.icon = "https://slack.com/img/icons/app-57.png"
@@ -66,6 +66,24 @@ webhookbot.sendRichTextMessage(
 ```
 
 Unneeded fields may be specified as "nil" or ignored entirely; they each default to nil.
+
+####Send Side by Side Messages
+
+```swift
+let webhookbot = Slackbot()
+webhookbot.markdown = true
+      
+let pretext = "*Side by Side Message Incoming* from an app written in Swift"
+
+let fields = [slackFields(title: "Left Column", 
+			value: "This text\nis in the left column", 
+			short: true), 
+		slackFields(title: "Right Column", 
+			value: "But this text\nis in the right column", 
+			short: true)]
+
+webhookbot.sendSideBySideMessage(fallback: "New Side by Side Message", pretext: pretext, fields: fields)
+```
 
 #####Slack's documentation describes the fields for a rich text message as follows:
 
