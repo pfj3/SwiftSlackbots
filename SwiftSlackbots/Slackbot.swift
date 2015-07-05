@@ -122,7 +122,7 @@ class Slackbot {
             slackJsonElements["attachments"] = [slackJsonAttachments]
         }
         
-        //If user passes nil to every field, crash.
+        //If user has passed nil to every field, crash.
         assert(slackJsonElements.isEmpty == false, "ERROR: No information to transmit")
         
         //Create the JSON payload
@@ -175,6 +175,8 @@ class Slackbot {
         return success
     }
 }
+
+//MARK: - Slack Fields Struct
 
 struct slackFields {
     var title: String?
