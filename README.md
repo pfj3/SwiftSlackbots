@@ -22,17 +22,19 @@ webhookbot.slackWebhookUrl = "https://hooks.slack.com/services/Your_webhook_addr
 
 ####Sending Simple Messages
 
+Simple messages can be sent a short line of code, and can include simple markup, like the new line flag.
+
 ```swift
 webhookbot.sendMessage(message: "This is a line of text in a channel.\nAnd this is another line of text.")
 ```
 
-And also messages with links:
+You can also send messages with links:
 
 ```swift
 webhookbot.sendMessage(message: "A very important thing has occurred! <https://alert-system.com/alerts/1234|Click here> for details!")
 ```
 
-Attributes such as the bot's name and icon can be set by the user, and the channel can be set in advance of sending a message. Channel may be overridden by specifying channel parameter in a call to any of the send message functions.
+Attributes like the bot's name and icon can be set by the user. The channel can be set in advance of sending a message. Or the channel may be overridden by specifying channel parameter in a call to any of the send message functions.
 
 ```swift
 webhookbot.botname = "webhookbot"
@@ -53,6 +55,8 @@ webhookbot.icon = "https://slack.com/img/icons/app-57.png"
 
 ####Send Richly Formatted Messages
 
+Slack provides for the ability to send more complex messages, which involve a number of parameters.
+
 ```swift
 webhookbot.sendRichTextMessage(
 	fallback: "New open task [Urgent]: <http://url_to_task|Test out Slack message attachments>",
@@ -65,9 +69,11 @@ webhookbot.sendRichTextMessage(
 	channel: nil)
 ```
 
-Unneeded fields may be specified as "nil" or ignored entirely; they each default to nil.
+Unneeded fields may be specified as "nil" or ignored entirely; they each default to nil. If all parameters are nil, the app will crash, via an ```assert``` statement
 
 ####Send Side by Side Messages
+
+Slack provides for the ability to send "short" messages. In practice, these make sense to me as "side by side" messages. To send messages of this type, the left message and right message must be sent as an array of ```slackFields``` objects, as shown.
 
 ```swift
 let webhookbot = Slackbot()
@@ -87,6 +93,7 @@ webhookbot.sendSideBySideMessage(fallback: "New Side by Side Message", pretext: 
 
 #####Slack's documentation describes the fields for a rich text message as follows:
 
+```
 * "fallback": "Required text summary of the attachment that is shown by clients that understand attachments but choose not to show them."
 * "text": "Optional text that should appear within the attachment"
 * "pretext": "Optional text that should appear above the formatted data"
@@ -95,4 +102,4 @@ webhookbot.sendSideBySideMessage(fallback: "New Side by Side Message", pretext: 
 Fields are displayed in a table on the message
 * "title": "Required Field Title", // The title may not contain markup and will be escaped for you
 * "value": "Text value of the field. May contain standard message markup and must be escaped as normal. May be multi-line.",
-* "short": false // Optional flag indicating whether the "value" is short enough to be displayed side-by-side with other values
+* "short": false // Optional flag indicating whether the "value" is short enough to be displayed side-by-side with other values```
