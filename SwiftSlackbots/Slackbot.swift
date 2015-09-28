@@ -14,6 +14,7 @@ class Slackbot {
     var botname: String?
     var icon: String?
     var channel: String?
+    
     var slackWebhookUrl = "https://hooks.slack.com/services/YOUR_WEBHOOK_URL"
     
     var markdown: Bool?
