@@ -29,17 +29,17 @@ class Slackbot {
     
     //MARK: - Message sending public functions
     
-    func sendMessage(#message: String) {
+    func sendMessage(message message: String) {
         sendMessage(message: message, channel: nil)
     }
     
-    func sendMessage(#message: String, channel: String?) {
+    func sendMessage(message message: String, channel: String?) {
         sendRichTextMessage(text: message, channel: channel)
     }
     
     func sendRichTextMessage(fallback: String? = nil, pretext: String? = nil, text: String? = nil, color: String? = nil, title: String? = nil, value: String? = nil, short: Bool? = false, channel: String? = nil) {
         
-        sendSideBySideMessage(fallback: fallback, pretext: pretext, text: text, color: color, fields: [slackFields(title: title, value: value, short: short)], channel: channel)
+        sendSideBySideMessage(fallback, pretext: pretext, text: text, color: color, fields: [slackFields(title: title, value: value, short: short)], channel: channel)
     }
     
     func sendSideBySideMessage(fallback: String? = nil, pretext: String? = nil, text: String? = nil, color: String? = nil, fields:[slackFields]?, channel: String? = nil) {
@@ -126,7 +126,7 @@ class Slackbot {
         assert(slackJsonElements.isEmpty == false, "ERROR: No information to transmit")
         
         //Create the JSON payload
-        let payloadData = NSJSONSerialization.dataWithJSONObject(slackJsonElements, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
+        let payloadData = try? NSJSONSerialization.dataWithJSONObject(slackJsonElements, options: NSJSONWritingOptions.PrettyPrinted)
         
         //Transmit JSON payload off the main queue
         dispatch_async(Constants.asynchUtilityQueue) {
@@ -137,39 +137,39 @@ class Slackbot {
     
     //MARK: - Private HTTP Function
     
-    private func httpJsonPost(#url: String, jsonPayload: NSData) -> Bool {
+    private func httpJsonPost(url url: String, jsonPayload: NSData) -> Bool {
         //Credit to rakeshbs for the basis of this function
         //http://stackoverflow.com/questions/28270560/call-slack-webincoming-hook-in-swift-but-get-interrupted-reason-exc-bad-instr
         var success = false
         
         if let readableJson = NSString(data: jsonPayload, encoding: NSUTF8StringEncoding) {
-            println("Attempting to send json: \(readableJson) to \(url)")
+            print("Attempting to send json: \(readableJson) to \(url)")
         }
         
         let cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
         
         if let url = NSURL(string: url)
         {
-            var request = NSMutableURLRequest(URL: url, cachePolicy: cachePolicy, timeoutInterval: 10.0)
+            let request = NSMutableURLRequest(URL: url, cachePolicy: cachePolicy, timeoutInterval: 10.0)
             
             request.HTTPMethod = "POST"
             request.HTTPBody = jsonPayload
             
             var error : NSError? = nil
-            if let data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: &error) {
+            do {
+                let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
                 let results = NSString(data:data, encoding:NSUTF8StringEncoding)
-                println("JSON Results: \(results!)")
+                print("JSON Results: \(results!)")
                 success = true
-            }
-            else
-            {
-                println("Data Invalid")
-                println(error)
+            } catch let error1 as NSError {
+                error = error1
+                print("Data Invalid")
+                print(error)
                 success = false
             }
         }
         else {
-            println("URL Invalid")
+            print("URL Invalid")
             success = false
         }
         return success
