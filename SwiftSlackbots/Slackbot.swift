@@ -77,6 +77,10 @@ class Slackbot {
         
         if markdown != nil {
             slackJsonElements["mrkdwn"] = markdown?.description
+            
+            if markdown == true {
+                slackJsonAttachments["mrkdwn_in"] = ["fallback","pretext", "fields"]
+            }
         }
         
         
