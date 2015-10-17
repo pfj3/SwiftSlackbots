@@ -11,14 +11,22 @@ class Slackbot {
     
     //MARK: - User accessible attributes
     
+    var slackWebhookURL: String
+    
     var botname: String?
     var icon: String?
-    var channel: String?
-    
-    var slackWebhookUrl = "https://hooks.slack.com/services/YOUR_WEBHOOK_URL"
-    
+    var channel: String?    
     var markdown: Bool?
     
+    //MARK: - Inits
+    
+    init() {
+        slackWebhookURL = "https://hooks.slack.com/services/YOUR_WEBHOOK_URL"
+    }
+    
+    init(url: String) {
+        slackWebhookURL = url
+    }
     //MARK: - Privately accessible constants
     
     private struct Constants {
@@ -31,10 +39,10 @@ class Slackbot {
     //MARK: - Message sending public functions
     
     func sendMessage(message message: String) {
-        sendMessage(message: message, channel: nil)
+        sendMessage(message: message)
     }
     
-    func sendMessage(message message: String, channel: String?) {
+    func sendMessage(message: String, channel: String? = nil) {
         sendRichTextMessage(text: message, channel: channel)
     }
     
@@ -135,7 +143,7 @@ class Slackbot {
         
         //Transmit JSON payload off the main queue
         dispatch_async(Constants.asynchUtilityQueue) {
-            self.httpJsonPost(url: slackWebhookUrl, jsonPayload: payloadData!)
+            self.httpJsonPost(url: slackWebhookURL, jsonPayload: payloadData!)
         }
     }
     

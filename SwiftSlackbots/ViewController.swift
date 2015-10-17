@@ -3,7 +3,6 @@
 //  SwiftSlackbots
 //
 //  Created by Peter Johnson on 5/13/15.
-//  Copyright (c) 2015 Peter Johnson. All rights reserved.
 //
 
 import UIKit
@@ -12,12 +11,12 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var textField: UITextField!
     
-    
     @IBAction func sendToSlack() {
-        let webhookbot = Slackbot()
         
-        if let message = textField.text {
-            webhookbot.sendMessage(message: message)
+        let webhookbot = Slackbot(url: "https://hooks.slack.com/services/INITIALIZE_WITH_YOUR_WEBHOOK_URL")
+        
+        if let msg = textField.text {
+            webhookbot.sendMessage(message: msg)
         }     
         
     }
