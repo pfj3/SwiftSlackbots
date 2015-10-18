@@ -2,7 +2,8 @@
 //  Slackbot.swift
 //  SwiftSlackbots
 //
-//  Created by Peter Johnson on 5/11/15.
+//  Created by Peter Johnson
+//  https://github.com/pfj3/SwiftSlackbots
 //
 
 import Foundation
@@ -16,11 +17,17 @@ class Slackbot {
     var botname: String?
     var icon: String?
     var channel: String?    
-    var markdown: Bool?
+    var markdown: Bool = true
     
     //MARK: - Inits
     
     init() {
+        /*
+        There are two ways to deliver your webhook URL to Slackbot. One, by placing it in the line below, which will
+        cause every Slackbot instance to have the same webhook URL. Or two, by initializing each Slackbot with the
+        webhook URL, like this:
+            var webhookbot = Slackbot(url: "someURLinStringForm")
+        */
         slackWebhookURL = "https://hooks.slack.com/services/YOUR_WEBHOOK_URL"
     }
     
@@ -38,11 +45,7 @@ class Slackbot {
     
     //MARK: - Message sending public functions
     
-    func sendMessage(message message: String) {
-        sendMessage(message: message)
-    }
-    
-    func sendMessage(message: String, channel: String? = nil) {
+    func sendMessage(message message: String, channel: String? = nil) {
         sendRichTextMessage(text: message, channel: channel)
     }
     
@@ -83,12 +86,10 @@ class Slackbot {
             slackJsonElements["text"] = text!
         }
         
-        if markdown != nil {
-            slackJsonElements["mrkdwn"] = markdown?.description
-            
-            if markdown == true {
-                slackJsonAttachments["mrkdwn_in"] = ["fallback","pretext", "fields"]
-            }
+        //Markdown
+        if markdown {
+            slackJsonElements["mrkdwn"] = markdown.description
+            slackJsonAttachments["mrkdwn_in"] = ["fallback","pretext", "fields"]
         }
         
         
@@ -168,21 +169,19 @@ class Slackbot {
             request.HTTPMethod = "POST"
             request.HTTPBody = jsonPayload
             
-            var error : NSError? = nil
             do {
                 let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
                 let results = NSString(data:data, encoding:NSUTF8StringEncoding)
                 print("JSON Results: \(results!)")
                 success = true
-            } catch let error1 as NSError {
-                error = error1
+            } catch {
                 print("Data Invalid")
                 print(error)
                 success = false
             }
         }
         else {
-            print("URL Invalid")
+            print("URL \(url) Invalid")
             success = false
         }
         return success

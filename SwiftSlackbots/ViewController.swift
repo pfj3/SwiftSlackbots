@@ -2,7 +2,8 @@
 //  ViewController.swift
 //  SwiftSlackbots
 //
-//  Created by Peter Johnson on 5/13/15.
+//  Created by Peter Johnson
+//  https://github.com/pfj3/SwiftSlackbots
 //
 
 import UIKit
@@ -13,10 +14,12 @@ class ViewController: UIViewController {
     
     @IBAction func sendToSlack() {
         
-        let webhookbot = Slackbot(url: "https://hooks.slack.com/services/INITIALIZE_WITH_YOUR_WEBHOOK_URL")
+        let webhookbot = Slackbot(url: "https://hooks.slack.com/services/YOUR_WEBHOOK_URL")
         
-        if let msg = textField.text {
-            webhookbot.sendMessage(message: msg)
+        webhookbot.channel = "#test"
+        
+        if let message = textField.text {
+            webhookbot.sendMessage(message: message)
         }     
         
     }
