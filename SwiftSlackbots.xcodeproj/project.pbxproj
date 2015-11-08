@@ -11,19 +11,8 @@
 		882EE8051B03C56B00A2C622 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882EE8041B03C56B00A2C622 /* ViewController.swift */; };
 		882EE8081B03C56B00A2C622 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 882EE8061B03C56B00A2C622 /* Main.storyboard */; };
 		882EE80A1B03C56B00A2C622 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 882EE8091B03C56B00A2C622 /* Images.xcassets */; };
-		882EE8191B03C56B00A2C622 /* SwiftSlackbotsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882EE8181B03C56B00A2C622 /* SwiftSlackbotsTests.swift */; };
 		882EE8231B03C57F00A2C622 /* Slackbot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882EE8221B03C57F00A2C622 /* Slackbot.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		882EE8131B03C56B00A2C622 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 882EE7F51B03C56B00A2C622 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 882EE7FC1B03C56B00A2C622;
-			remoteInfo = SwiftSlackbots;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		882EE7FD1B03C56B00A2C622 /* SwiftSlackbots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftSlackbots.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,21 +21,11 @@
 		882EE8041B03C56B00A2C622 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		882EE8071B03C56B00A2C622 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		882EE8091B03C56B00A2C622 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		882EE8121B03C56B00A2C622 /* SwiftSlackbotsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftSlackbotsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		882EE8171B03C56B00A2C622 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		882EE8181B03C56B00A2C622 /* SwiftSlackbotsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSlackbotsTests.swift; sourceTree = "<group>"; };
 		882EE8221B03C57F00A2C622 /* Slackbot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slackbot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		882EE7FA1B03C56B00A2C622 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		882EE80F1B03C56B00A2C622 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -60,7 +39,6 @@
 			isa = PBXGroup;
 			children = (
 				882EE7FF1B03C56B00A2C622 /* SwiftSlackbots */,
-				882EE8151B03C56B00A2C622 /* SwiftSlackbotsTests */,
 				882EE7FE1B03C56B00A2C622 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -69,7 +47,6 @@
 			isa = PBXGroup;
 			children = (
 				882EE7FD1B03C56B00A2C622 /* SwiftSlackbots.app */,
-				882EE8121B03C56B00A2C622 /* SwiftSlackbotsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,23 +72,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		882EE8151B03C56B00A2C622 /* SwiftSlackbotsTests */ = {
-			isa = PBXGroup;
-			children = (
-				882EE8181B03C56B00A2C622 /* SwiftSlackbotsTests.swift */,
-				882EE8161B03C56B00A2C622 /* Supporting Files */,
-			);
-			path = SwiftSlackbotsTests;
-			sourceTree = "<group>";
-		};
-		882EE8161B03C56B00A2C622 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				882EE8171B03C56B00A2C622 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,24 +92,6 @@
 			productReference = 882EE7FD1B03C56B00A2C622 /* SwiftSlackbots.app */;
 			productType = "com.apple.product-type.application";
 		};
-		882EE8111B03C56B00A2C622 /* SwiftSlackbotsTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 882EE81F1B03C56B00A2C622 /* Build configuration list for PBXNativeTarget "SwiftSlackbotsTests" */;
-			buildPhases = (
-				882EE80E1B03C56B00A2C622 /* Sources */,
-				882EE80F1B03C56B00A2C622 /* Frameworks */,
-				882EE8101B03C56B00A2C622 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				882EE8141B03C56B00A2C622 /* PBXTargetDependency */,
-			);
-			name = SwiftSlackbotsTests;
-			productName = SwiftSlackbotsTests;
-			productReference = 882EE8121B03C56B00A2C622 /* SwiftSlackbotsTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -163,10 +105,6 @@
 				TargetAttributes = {
 					882EE7FC1B03C56B00A2C622 = {
 						CreatedOnToolsVersion = 6.3.1;
-					};
-					882EE8111B03C56B00A2C622 = {
-						CreatedOnToolsVersion = 6.3.1;
-						TestTargetID = 882EE7FC1B03C56B00A2C622;
 					};
 				};
 			};
@@ -184,7 +122,6 @@
 			projectRoot = "";
 			targets = (
 				882EE7FC1B03C56B00A2C622 /* SwiftSlackbots */,
-				882EE8111B03C56B00A2C622 /* SwiftSlackbotsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -196,13 +133,6 @@
 			files = (
 				882EE8081B03C56B00A2C622 /* Main.storyboard in Resources */,
 				882EE80A1B03C56B00A2C622 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		882EE8101B03C56B00A2C622 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,23 +149,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		882EE80E1B03C56B00A2C622 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				882EE8191B03C56B00A2C622 /* SwiftSlackbotsTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		882EE8141B03C56B00A2C622 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 882EE7FC1B03C56B00A2C622 /* SwiftSlackbots */;
-			targetProxy = 882EE8131B03C56B00A2C622 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		882EE8061B03C56B00A2C622 /* Main.storyboard */ = {
@@ -350,40 +264,6 @@
 			};
 			name = Release;
 		};
-		882EE8201B03C56B00A2C622 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwiftSlackbotsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftSlackbots.app/SwiftSlackbots";
-			};
-			name = Debug;
-		};
-		882EE8211B03C56B00A2C622 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwiftSlackbotsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftSlackbots.app/SwiftSlackbots";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -401,15 +281,6 @@
 			buildConfigurations = (
 				882EE81D1B03C56B00A2C622 /* Debug */,
 				882EE81E1B03C56B00A2C622 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		882EE81F1B03C56B00A2C622 /* Build configuration list for PBXNativeTarget "SwiftSlackbotsTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				882EE8201B03C56B00A2C622 /* Debug */,
-				882EE8211B03C56B00A2C622 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

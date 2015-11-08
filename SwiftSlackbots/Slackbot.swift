@@ -16,31 +16,24 @@ class Slackbot {
     
     var botname: String?
     var icon: String?
-    var channel: String?    
+    var channel: String?
     var markdown: Bool = true
     
     //MARK: - Inits
     
+    /*
+    There are two ways to deliver your webhook URL to Slackbot. One, by placing it in the line below, which will
+    cause every Slackbot instance to have the same webhook URL. Or two, by initializing each Slackbot with the
+    webhook URL, like this:
+    var webhookbot = Slackbot(url: "someURLinStringForm")
+    */
+    
     init() {
-        /*
-        There are two ways to deliver your webhook URL to Slackbot. One, by placing it in the line below, which will
-        cause every Slackbot instance to have the same webhook URL. Or two, by initializing each Slackbot with the
-        webhook URL, like this:
-            var webhookbot = Slackbot(url: "someURLinStringForm")
-        */
         slackWebhookURL = "https://hooks.slack.com/services/YOUR_WEBHOOK_URL"
     }
     
     init(url: String) {
         slackWebhookURL = url
-    }
-    //MARK: - Privately accessible constants
-    
-    private struct Constants {
-        static let asynchBackgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0) // prefetching, cleaning up a database, etc.
-        static let asynchUserInitiatedQueue = dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0) // high priority, might take time, but user really needs it now
-        static let asynchUtilityQueue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0) // user didn't ask, but just need to do in background, something that matters right now, so it'd be nice if it returned soon
-        static let dispatchMainQueue = dispatch_get_main_queue()
     }
     
     //MARK: - Message sending public functions
@@ -86,6 +79,7 @@ class Slackbot {
             slackJsonElements["text"] = text!
         }
         
+        
         //Markdown
         if markdown {
             slackJsonElements["mrkdwn"] = markdown.description
@@ -105,7 +99,6 @@ class Slackbot {
         if color != nil {
             slackJsonAttachments["color"] = color!
         }
-        
         
         
         //Fields: title, value, short
@@ -136,55 +129,41 @@ class Slackbot {
             slackJsonElements["attachments"] = [slackJsonAttachments]
         }
         
+        
+        
         //If user has passed nil to every field, crash.
-        assert(slackJsonElements.isEmpty == false, "ERROR: No information to transmit")
+        assert(slackJsonElements.isEmpty == false, "ERROR: No information to transmit")       
         
         //Create the JSON payload
         let payloadData = try? NSJSONSerialization.dataWithJSONObject(slackJsonElements, options: NSJSONWritingOptions.PrettyPrinted)
         
         //Transmit JSON payload off the main queue
-        dispatch_async(Constants.asynchUtilityQueue) {
-            self.httpJsonPost(url: self.slackWebhookURL, jsonPayload: payloadData!)
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
+            do {
+                if let data = try self.httpJsonPost(url: self.slackWebhookURL, jsonPayload: payloadData!) {
+                    //print(NSString(data:data, encoding:NSUTF8StringEncoding))
+                }
+            } catch {
+                //print(error)
+            }
+            
         }
     }
     
     
     //MARK: - Private HTTP Function
     
-    private func httpJsonPost(url url: String, jsonPayload: NSData) -> Bool {
-        //Credit to rakeshbs for the basis of this function
-        //http://stackoverflow.com/questions/28270560/call-slack-webincoming-hook-in-swift-but-get-interrupted-reason-exc-bad-instr
-        var success = false
-        
-        if let readableJson = NSString(data: jsonPayload, encoding: NSUTF8StringEncoding) {
-            print("Attempting to send json: \(readableJson) to \(url)")
-        }
-        
-        let cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
-        
+    private func httpJsonPost(url url: String, jsonPayload: NSData) throws -> NSData? {
         if let url = NSURL(string: url)
         {
+            let cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
             let request = NSMutableURLRequest(URL: url, cachePolicy: cachePolicy, timeoutInterval: 10.0)
-            
             request.HTTPMethod = "POST"
             request.HTTPBody = jsonPayload
             
-            do {
-                let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
-                let results = NSString(data:data, encoding:NSUTF8StringEncoding)
-                print("JSON Results: \(results!)")
-                success = true
-            } catch {
-                print("Data Invalid")
-                print(error)
-                success = false
-            }
+            return try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
         }
-        else {
-            print("URL \(url) Invalid")
-            success = false
-        }
-        return success
+        return nil
     }
 }
 
