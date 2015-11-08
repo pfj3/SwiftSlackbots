@@ -4,16 +4,18 @@ http://www.slack.com
 
 
 
-To implement the class, create a new Slackbot object
+To implement the class, create a new Slackbot object and designate the webhook URL at the time of initialization
 
 ```swift
-var webhookbot = Slackbot()
+var webhookbot = Slackbot(url: "https://hooks.slack.com/services/Your_webhook_address")
 ```
 
 
-The webhook URL can be set as an attribute of the bot, or set by default value, specified in the Slackbot class.
+As an alternative, the webhook URL can be set by changing the ```slackWebhookURL``` attribute of the bot at any time. Or by designating a default value by changing the code in ```init()``` in the Slackbot class.
 
 ```swift
+var webhookbot = Slackbot()
+
 webhookbot.slackWebhookUrl = "https://hooks.slack.com/services/Your_webhook_address"
 ```
 
@@ -73,7 +75,7 @@ Unneeded fields may be specified as "nil" or ignored entirely; they each default
 
 ####Send Side by Side Messages
 
-Slack provides for the ability to send "short" messages. In practice, these make sense to me as "side by side" messages. To send messages of this type, the left message and right message must be sent as an array of ```slackFields``` objects, as shown.
+Slack provides for the ability to send "short" messages. In practice, these make sense to me as "side by side" messages. To send messages of this type, the left message and right message must be sent as an array of ```slackFields``` objects
 
 ```swift
 let webhookbot = Slackbot()
