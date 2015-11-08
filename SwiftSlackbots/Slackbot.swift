@@ -3,7 +3,7 @@
 //  SwiftSlackbots
 //
 //  Created by Peter Johnson
-//  https://github.com/pfj3/SwiftSlackbots
+//  See readme at https://github.com/pfj3/SwiftSlackbots
 //
 
 import Foundation
@@ -12,12 +12,24 @@ class Slackbot {
     
     //MARK: - User accessible attributes
     
-    var slackWebhookURL: String
+    var slackWebhookURL: String {
+        //The webhook URL is immediately converted to NSURL as soon as it is set. This allows an error to be thrown long before an attempt is made at transmitting data
+        didSet {
+            if let coercedURL = NSURL(string: slackWebhookURL) {
+                slackWebhookURLasNSURL = coercedURL
+            } else {
+                fatalError("The webhook URL is not a valid URL")
+            }
+        }
+    }
+    private var slackWebhookURLasNSURL: NSURL //Automatically populated when slackWebhookURL is set
     
     var botname: String?
     var icon: String?
     var channel: String?
     var markdown: Bool = true
+    
+    
     
     //MARK: - Inits
     
@@ -28,13 +40,26 @@ class Slackbot {
     var webhookbot = Slackbot(url: "someURLinStringForm")
     */
     
-    init() {
-        slackWebhookURL = "https://hooks.slack.com/services/YOUR_WEBHOOK_URL"
+    init(url: String) {
+        self.slackWebhookURL = url
+        
+        if let coercedURL = NSURL(string: url) {
+            slackWebhookURLasNSURL = coercedURL
+        } else {
+            fatalError("The webhook URL is not a valid URL")
+        }
     }
     
-    init(url: String) {
-        slackWebhookURL = url
+    convenience init() {
+        self.init(url: "https://hooks.slack.com/services/YOUR_WEBHOOK_URL")
     }
+    
+    init(url: NSURL) {
+        self.slackWebhookURLasNSURL = url
+        self.slackWebhookURL = "\(url)"        
+    }
+    
+    
     
     //MARK: - Message sending public functions
     
@@ -140,30 +165,26 @@ class Slackbot {
         //Transmit JSON payload off the main queue
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
             do {
-                if let data = try self.httpJsonPost(url: self.slackWebhookURL, jsonPayload: payloadData!) {
-                    //print(NSString(data:data, encoding:NSUTF8StringEncoding))
-                }
+                let data = try self.httpJsonPost(url: self.slackWebhookURLasNSURL, jsonPayload: payloadData!)
+                //print(NSString(data:data, encoding:NSUTF8StringEncoding))
+                
             } catch {
                 //print(error)
             }
-            
         }
     }
     
     
+    
     //MARK: - Private HTTP Function
     
-    private func httpJsonPost(url url: String, jsonPayload: NSData) throws -> NSData? {
-        if let url = NSURL(string: url)
-        {
-            let cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
-            let request = NSMutableURLRequest(URL: url, cachePolicy: cachePolicy, timeoutInterval: 10.0)
-            request.HTTPMethod = "POST"
-            request.HTTPBody = jsonPayload
+    private func httpJsonPost(url url: NSURL, jsonPayload: NSData) throws -> NSData {
+        let cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
+        let request = NSMutableURLRequest(URL: url, cachePolicy: cachePolicy, timeoutInterval: 10.0)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = jsonPayload
             
-            return try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
-        }
-        return nil
+        return try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
     }
 }
 
