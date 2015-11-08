@@ -144,7 +144,7 @@ class Slackbot {
         
         //Transmit JSON payload off the main queue
         dispatch_async(Constants.asynchUtilityQueue) {
-            self.httpJsonPost(url: slackWebhookURL, jsonPayload: payloadData!)
+            self.httpJsonPost(url: self.slackWebhookURL, jsonPayload: payloadData!)
         }
     }
     
