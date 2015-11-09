@@ -29,12 +29,14 @@ Simple messages can be sent a short line of code, and can include simple markup,
 ```swift
 webhookbot.sendMessage(message: "This is a line of text in a channel.\nAnd this is another line of text.")
 ```
+![Slack's image](https://api.slack.com/img/api/incoming_simple.png)
 
 You can also send messages with links:
 
 ```swift
-webhookbot.sendMessage(message: "A very important thing has occurred! <https://alert-system.com/alerts/1234|Click here> for details!")
+webhookbot.sendMessage(message: "<https://alert-system.com/alerts/1234|Click here> for details!")
 ```
+![Slack's image](https://api.slack.com/img/api/incoming_link.png)
 
 Attributes like the bot's name and icon can be set by the user. The channel can be set in advance of sending a message. Or the channel may be overridden by specifying channel parameter in a call to any of the send message functions.
 
