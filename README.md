@@ -24,7 +24,7 @@ webhookbot.slackWebhookUrl = "https://hooks.slack.com/services/Your_webhook_addr
 
 ####Sending Simple Messages
 
-Simple messages can be sent a short line of code, and can include simple markup, like the new line flag.
+Simple messages can be sent as a short line of code, and can include simple markup, like the new line flag.
 
 ```swift
 webhookbot.sendMessage(message: "This is a line of text in a channel.\nAnd this is another line of text.")
