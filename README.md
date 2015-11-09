@@ -46,6 +46,7 @@ webhookbot.icon = ":ghost:"
 webhookbot.channel = "#test"
 webhookbot.sendMessage(message: "This is posted to #test and comes from a bot named webhookbot.")
 ```
+![Ghost Bot](https://cloud.githubusercontent.com/assets/9792756/11025238/ba81a536-8666-11e5-8beb-daa2dd81611a.png)
 
 
 The icon can be an emoji from http://emoji-cheat-sheet.com or it can be the URL of an image. If the icon string does not match the pattern of an emoji (e.g. ```:iphone:```) then it is assumed to be a URL.
@@ -72,6 +73,7 @@ webhookbot.sendRichTextMessage(
 	short: false,
 	channel: nil)
 ```
+![Rich Text Message](https://cloud.githubusercontent.com/assets/9792756/11025240/ba8c1dc2-8666-11e5-96c0-a8dbb6b62344.png)
 
 Unneeded fields may be specified as "nil" or ignored entirely; they each default to nil. If all parameters are nil, the app will crash, via an ```assert``` statement
 
@@ -94,7 +96,7 @@ let fields = [slackFields(title: "Left Column",
 
 webhookbot.sendSideBySideMessage(fallback: "New Side by Side Message", pretext: pretext, fields: fields)
 ```
-
+![Side by Side](https://cloud.githubusercontent.com/assets/9792756/11025239/ba898918-8666-11e5-8329-cd0e8a19f6a7.png)
 #####Slack's documentation describes the fields for a rich text message as follows:
 
 ```
