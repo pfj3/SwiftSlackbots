@@ -75,7 +75,7 @@ webhookbot.sendRichTextMessage(
 ```
 ![Rich Text Message](https://cloud.githubusercontent.com/assets/9792756/11025240/ba8c1dc2-8666-11e5-96c0-a8dbb6b62344.png)
 
-Unneeded fields may be specified as "nil" or ignored entirely; they each default to nil. If all parameters are nil, the app will crash, via an ```assert``` statement
+Unneeded fields may be specified as ```nil``` or ignored entirely; they each default to nil. If all parameters are nil, the app will crash, via an ```assert``` statement
 
 ####Send Side by Side Messages
 
