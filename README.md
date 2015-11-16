@@ -24,17 +24,19 @@ webhookbot.slackWebhookUrl = "https://hooks.slack.com/services/Your_webhook_addr
 
 ####Sending Simple Messages
 
-Simple messages can be sent a short line of code, and can include simple markup, like the new line flag.
+Simple messages can be sent as a short line of code, and can include simple markup, like the new line flag.
 
 ```swift
 webhookbot.sendMessage(message: "This is a line of text in a channel.\nAnd this is another line of text.")
 ```
+![Slack's image](https://api.slack.com/img/api/incoming_simple.png)
 
 You can also send messages with links:
 
 ```swift
-webhookbot.sendMessage(message: "A very important thing has occurred! <https://alert-system.com/alerts/1234|Click here> for details!")
+webhookbot.sendMessage(message: "<https://alert-system.com/alerts/1234|Click here> for details!")
 ```
+![Slack's image](https://api.slack.com/img/api/incoming_link.png)
 
 Attributes like the bot's name and icon can be set by the user. The channel can be set in advance of sending a message. Or the channel may be overridden by specifying channel parameter in a call to any of the send message functions.
 
@@ -44,6 +46,7 @@ webhookbot.icon = ":ghost:"
 webhookbot.channel = "#test"
 webhookbot.sendMessage(message: "This is posted to #test and comes from a bot named webhookbot.")
 ```
+![Ghost Bot](https://cloud.githubusercontent.com/assets/9792756/11025238/ba81a536-8666-11e5-8beb-daa2dd81611a.png)
 
 
 The icon can be an emoji from http://emoji-cheat-sheet.com or it can be the URL of an image. If the icon string does not match the pattern of an emoji (e.g. ```:iphone:```) then it is assumed to be a URL.
@@ -70,8 +73,9 @@ webhookbot.sendRichTextMessage(
 	short: false,
 	channel: nil)
 ```
+![Rich Text Message](https://cloud.githubusercontent.com/assets/9792756/11025240/ba8c1dc2-8666-11e5-96c0-a8dbb6b62344.png)
 
-Unneeded fields may be specified as "nil" or ignored entirely; they each default to nil. If all parameters are nil, the app will crash, via an ```assert``` statement
+Unneeded fields may be specified as ```nil``` or ignored entirely; they each default to nil. If all parameters are nil, the app will crash, via an ```assert``` statement
 
 ####Send Side by Side Messages
 
@@ -92,7 +96,7 @@ let fields = [slackFields(title: "Left Column",
 
 webhookbot.sendSideBySideMessage(fallback: "New Side by Side Message", pretext: pretext, fields: fields)
 ```
-
+![Side by Side](https://cloud.githubusercontent.com/assets/9792756/11025239/ba898918-8666-11e5-8329-cd0e8a19f6a7.png)
 #####Slack's documentation describes the fields for a rich text message as follows:
 
 ```
