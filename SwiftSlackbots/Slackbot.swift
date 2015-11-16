@@ -162,29 +162,34 @@ class Slackbot {
         //Create the JSON payload
         let payloadData = try? NSJSONSerialization.dataWithJSONObject(slackJsonElements, options: NSJSONWritingOptions.PrettyPrinted)
         
-        //Transmit JSON payload off the main queue
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
-            do {
-                let data = try self.httpJsonPost(url: self.slackWebhookURLasNSURL, jsonPayload: payloadData!)
-                //print(NSString(data:data, encoding:NSUTF8StringEncoding))
-                
-            } catch {
+        //Transmit JSON payload
+        httpJsonPost(url: self.slackWebhookURLasNSURL, jsonPayload: payloadData!, completion: { (let error, let data, let response) in
+            if (error != nil) {
                 //print(error)
             }
-        }
+            if (data != nil) {
+                //print(NSString(data: data!, encoding: NSUTF8StringEncoding) as! String)
+            }
+        })
     }
     
     
     
     //MARK: - Private HTTP Function
     
-    private func httpJsonPost(url url: NSURL, jsonPayload: NSData) throws -> NSData {
+    private func httpJsonPost(url url: NSURL, jsonPayload: NSData, completion: ((NSError?, NSData?, NSURLResponse?) -> Void)) -> Void {
+        
         let cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
         let request = NSMutableURLRequest(URL: url, cachePolicy: cachePolicy, timeoutInterval: 10.0)
         request.HTTPMethod = "POST"
         request.HTTPBody = jsonPayload
-            
-        return try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
+        let session = NSURLSession.sharedSession()
+        
+        let task = session.dataTaskWithRequest(request) { (let data, let response, let error) in
+            completion(error, data, response)
+            return
+        }
+        task.resume()
     }
 }
 
